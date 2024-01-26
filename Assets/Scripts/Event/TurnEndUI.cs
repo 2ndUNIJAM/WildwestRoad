@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnEndUI : MonoBehaviour
+public class TurnEndMidUI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _player0Gun;
+    private List<Sprite> _typeASprite;
     [SerializeField]
-    private GameObject _player1Gun;
+    private List<Sprite> _typeBSprite;
     [SerializeField]
-    private GameObject _player0Heart;
+    private List<Sprite> _typeCSprite;
     [SerializeField]
-    private GameObject _player1Heart;
+    private List<Sprite> _typeDSprite;
 
-    void OnAble(TurnResult turnResult)
-    {
-
-    }
+     
 }
