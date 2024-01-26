@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnResult : MonoBehaviour
+public struct TurnResult
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int HealthDiff1;
+    public int AmmoDiff1;
+    public int MaxAmmoDiff1;
+    public int HealthDiff2;
+    public int AmmoDiff2;
+    public int MaxAmmoDiff2;
 }
