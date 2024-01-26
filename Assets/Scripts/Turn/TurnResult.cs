@@ -14,4 +14,7 @@ public struct TurnResult
     public PlayerActionType Action2;
     public bool IsUltimateUsed1;
     public bool IsUltimateUsed2;
+
+    public override string ToString()
+        => $"{HealthDiff1}, {HealthDiff2}, {AmmoDiff1}, {AmmoDiff2}, {Action1}, {Action2}, {IsUltimateUsed1}, {IsUltimateUsed2},";
 }
