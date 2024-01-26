@@ -4,7 +4,8 @@ public class Nadesiko : Player
 {
     public Nadesiko()
     {
-        _maxHealth = 4;
+        _maxHealth = 2;
+        _health = 2;
         _maxAmmo = 5;
         _ammo = 1;
         _playerType = PlayerType.D;
@@ -17,13 +18,9 @@ public class Nadesiko : Player
             var rand = new Random();
 
             if (rand.Next(0, 2) == 0)
-            {
-                GetDamage();
-            }
+                _health = Math.Clamp(_health - 1, 0, _maxHealth);
             else
-            {
                 IsUltimateUsed = true;
-            }
         }
     }
 }

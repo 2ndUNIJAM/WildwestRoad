@@ -1,8 +1,11 @@
+using System;
+
 public class Loki : Player
 {
     public Loki()
     {
         _maxHealth = 3;
+        _health = 3;
         _maxAmmo = 4;
         _ammo = 1;
         _playerType = PlayerType.B;
@@ -17,7 +20,7 @@ public class Loki : Player
         }
         else
         {
-            GetDamage();
+            _health = Math.Clamp(_health - 1, 0, _maxHealth);
         }
     }
 }

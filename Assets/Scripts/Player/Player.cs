@@ -18,12 +18,24 @@ public abstract class Player
     public int MaxAmmo => _maxAmmo;
     public PlayerActionType ActionType => _actionType;
 
-    public bool IsShootingSuccess => (_ammo / _maxAmmo) * 1000 < s_rand.Next(0, 1000);
+    public bool TryFire()
+    {
+        var ret = (float)_ammo / (float)_maxAmmo * 1000;
+        var rand = s_rand.Next(0, 1000);
+
+        return ret > rand;
+    }
+
     public bool IsUltimateUsed { get; set; } = false;
 
     public void ResetFlags()
     {
         IsUltimateUsed = false;
+    }
+
+    public void SetAction(PlayerActionType playerActionType)
+    {
+        _actionType = playerActionType;
     }
 
     public virtual void ReloadAmmo()
@@ -39,11 +51,18 @@ public abstract class Player
 
     public virtual void Fire(Player enemy)
     {
-        _ammo = Math.Clamp(_ammo - 1, 0, _maxAmmo);
+        if (_ammo <= 0)
+            return;
 
-        if (IsShootingSuccess)
+        if (TryFire())
+        {
             enemy.GetDamage();
+            _ammo = Math.Clamp(_ammo - 1, 0, _maxAmmo);
+        }
     }
+
+    public override string ToString()
+        => $"Type: {PlayerType}, Health: {Health}, Ammo: {Ammo}, MaxAmmo: {MaxAmmo}, HitRate: {(float)_ammo / (float)_maxAmmo}, ActionType: {ActionType}, Ultimate: {IsUltimateUsed}";
 }
 
 public enum PlayerActionType
