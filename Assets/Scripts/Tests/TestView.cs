@@ -28,6 +28,12 @@ public class TestView : MonoBehaviour
             _turnManager.SetPlayerAction(1, PlayerActionType.Reload);
             _turnManager.SetPlayerAction(2, PlayerActionType.Reload);
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            _turnManager.SetPlayerAction(1, PlayerActionType.Attack);
+            _turnManager.SetPlayerAction(2, PlayerActionType.Reload);
+        }
     }
 
     private void OnGameStart()
@@ -40,5 +46,8 @@ public class TestView : MonoBehaviour
         => Debug.Log("Turn Start!");
 
     private void OnTurnEnd(TurnResult result)
-        => Debug.Log("Turn End!");
+    {
+        Debug.Log("Turn End!");
+        Debug.Log(result);
+    }
 }
