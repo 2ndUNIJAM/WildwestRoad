@@ -6,7 +6,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour, ITurnManager
 {
     public event Action OnTurnStarted;
-    public event Action<PlayerActionType> OnTurnEnded;
+    public event Action<TurnResult> OnTurnEnded;
 
     public bool SetPlayerAction(int index, PlayerActionType actionType)
     {

@@ -18,5 +18,5 @@ public interface ITurnManager
     /// <summary>
     /// 턴 종료 시 호출
     /// </summary>
-    event Action<PlayerActionType> OnTurnEnded;
+    event Action<TurnResult> OnTurnEnded;
 }

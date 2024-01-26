@@ -12,5 +12,7 @@ public class Player : MonoBehaviour
 
 public enum PlayerActionType
 {
-    
+    Attack,
+    Dodge,
+    Reload
 }
