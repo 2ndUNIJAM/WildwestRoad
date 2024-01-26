@@ -22,8 +22,13 @@ public class TurnManager : MonoBehaviour, ITurnManager
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
-    private void Awake()
+    private void Start()
     {
+        var factory = new PlayerFactory();
+
+        _player1 = factory.CreatePlayer(GameManager.Instance.Player1Type);
+        _player2 = factory.CreatePlayer(GameManager.Instance.Player2Type);
+
         OnGameStarted?.Invoke();
         StartTurn();
     }
@@ -32,6 +37,8 @@ public class TurnManager : MonoBehaviour, ITurnManager
     {
         _player1.ResetFlags();
         _player2.ResetFlags();
+        _isPlayer1Acted = false;
+        _isPlayer2Acted = false;
         OnTurnStarted?.Invoke();
     }
 
@@ -60,12 +67,14 @@ public class TurnManager : MonoBehaviour, ITurnManager
                     return false;
 
                 _player1.SetAction(actionType);
+                _isPlayer1Acted = true;
                 break;
             case 2:
                 if (_isPlayer2Acted)
                     return false;
 
                 _player2.SetAction(actionType);
+                _isPlayer2Acted = true;
                 break;
             default:
                 throw new InvalidOperationException();
