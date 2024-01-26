@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class HeartDestroyUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+    
+    void OnAble(TurnResult turnResult)
+    {
+        Debug.Log("Life reduce , No implementation ");
+    }
 
 }
