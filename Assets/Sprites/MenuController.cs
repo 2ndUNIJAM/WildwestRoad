@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
 
-
+    public GameObject SelectPanel;
     private void Awake()
     {
         Screen.SetResolution(1920, 1080, false);
     }
     void Start()
     {
+        SelectPanel.SetActive(false);
     }
     public void StartBtn()
     {
-        SceneManager.LoadScene("GameScene"); //게임시작버튼을누르면  게임씬을 불러옴
+        SelectPanel.SetActive(true);
     }
     public void ExitBtn()
     {
