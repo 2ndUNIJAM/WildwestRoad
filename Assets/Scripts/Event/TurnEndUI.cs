@@ -78,6 +78,11 @@ public class TurnEndMidUI : MonoBehaviour
                         yield return new WaitForSeconds(2.0f);
 
                         animationReveal(_midSpriteLis[0], _midSpriteHolder);
+
+                        yield return new WaitForSeconds(2.0f);
+
+                        
+
                     }
                     break;
 
