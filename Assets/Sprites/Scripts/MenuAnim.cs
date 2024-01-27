@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,10 @@ using UnityEngine.UI;
 
 public class UISpriteAnimation : MonoBehaviour
 {
+    //-380  ->  500
+    public RectTransform _rectTransform;
+
+
     public Sprite[] sprites; // 스프라이트 배열, Inspector 창에서 설정 가능
     public float frameRate = 0.2f; // 프레임 속도, Inspector 창에서 설정 가능
 
@@ -14,6 +19,9 @@ public class UISpriteAnimation : MonoBehaviour
 
     void Start()
     {
+        _rectTransform.DOAnchorPosX(500, 2f).SetEase(Ease.OutCubic);
+         
+
         // Image 컴포넌트 참조
         _image = GetComponent<Image>();
 

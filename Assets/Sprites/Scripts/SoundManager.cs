@@ -1,21 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SoundManager : SingletonBehaviour<SoundManager>
 {
+   
+    
     [System.Serializable]
     public class Sound
     {
-        public string name;
+        public SoundType SoundType;
         public AudioClip clip;
     }
- 
-
     [SerializeField]
-    private Sound[] _bgm = null;
+    private List<Sound> _bgms;
     [SerializeField]
-    private Sound[] _sfx = null;
+    private List<Sound> _sfxs = null;
     [SerializeField]
     private AudioSource _bgmPlayer = null;
     public List<AudioSource> sfxPlayers = new List<AudioSource>();
@@ -30,17 +30,12 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         }
     }
 
-    public void PlayBGM(string bgmName)
+    public void PlayBGM(SoundType soundType)
     {
-        for (int i = 0; i < _bgm.Length; i++)
-        {
-            if (bgmName == _bgm[i].name)
-            {
-                _bgmPlayer.clip = _bgm[i].clip;
-                _bgmPlayer.Play();
-                return;
-            }
-        }
+        var bgm = _bgms.First(b => b.SoundType == soundType);
+        _bgmPlayer.clip = bgm.clip;
+        _bgmPlayer.Play();
+        return;
     }
 
     public void StopBGM()
@@ -48,21 +43,20 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         _bgmPlayer.Stop();
     }
 
-    public void PlaySFX(string sfxName, float volume = 1.0f)
+    public void PlaySFX(SoundType soundType, float volume = 1.0f)
     {
-        for (int i = 0; i < _sfx.Length; i++)
+        for (int i = 0; i < _sfxs.Count; i++)
         {
-            if (sfxName == _sfx[i].name)
+            if (soundType == _sfxs[i].SoundType)
             {
                 AudioSource sfxPlayer = GetAvailableSFXPlayer();
-                sfxPlayer.clip = _sfx[i].clip;
+                sfxPlayer.clip = _sfxs[i].clip;
                 sfxPlayer.volume = volume;
                 sfxPlayer.Play();
                 return;
             }
         }
     }
-
     private AudioSource GetAvailableSFXPlayer()
     {
         for (int i = 0; i < sfxPlayers.Count; i++)
@@ -78,4 +72,32 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         sfxPlayers.Add(newSFXPlayer);
         return newSFXPlayer;
     }
+
+}
+
+public enum SoundType
+{
+   MenuBGM=0,
+   BGM2=1,
+   CharSelectSfx=2,
+   HeartHit=3,
+   BulletSfx=4,
+   BulletSfx2=5,
+   BulletSfx3=6,
+   FallingBullet=7,
+   RevolvingSfx =8,
+   ReloadingSfx=9,
+   AvoidBullet=10,
+   NadeshikoHit1 = 11,
+   NadeshikoHit2 = 12,
+   NadeshikoSfx=13,
+   RestCharSfx=14,
+   RangerHit=15,
+   RockyHit=16,
+   MaxHit=17,
+   WinGame=18,
+   DrawGame=19,
+   SwallowSfx=20,
+   CountGame=21,
+   BtnMove=22
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class CharacterSelection : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.S) && !_player1Confirmed)
-        {
+        {   //플레이어1 캐릭터선택 (S키)
             if (CharSelectedList2[_currentPlayer1].activeSelf)
             {
                 return;
@@ -57,11 +58,11 @@ public class CharacterSelection : MonoBehaviour
             _player1Selected = true;
             CharWantedList1[_currentPlayer1].SetActive(true);
             ChangeColor(CharImageList[_currentPlayer1]);
+            SoundManager.Instance.PlaySFX(SoundType.ReloadingSfx);
             Debug.Log("Player 1 confirmed with character " + _currentPlayer1);
-
         }
         else if (Input.GetKeyDown(KeyCode.W) && _player1Confirmed)
-        {
+        {   //플레이어1 캐릭터선택해제 (W키)
             _player1Confirmed = false;
             _player1Selected = false;
             CharWantedList1[_currentPlayer1].SetActive(false);
@@ -70,25 +71,22 @@ public class CharacterSelection : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && !_player2Confirmed)
-        {
+        {   //플레이어2 캐릭터선택 (아래화살표키)
             if (CharSelectedList[_currentPlayer2].activeSelf)
             {
                 return;
             }
-            /*if (CharSelectedList[0].activeSelf || CharSelectedList[1].activeSelf ||
-                CharSelectedList[2].activeSelf || CharSelectedList[3].activeSelf)
-            {
-                return;
-            }*/
+
             _player2Confirmed = true;
             _player2Selected = true;
             CharWantedList2[_currentPlayer2].SetActive(true);
             ChangeColor(CharImageList[_currentPlayer2]);
+            SoundManager.Instance.PlaySFX(SoundType.ReloadingSfx);
             Debug.Log("Player 2 confirmed with character " + _currentPlayer2);
 
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) && _player2Confirmed)
-        {
+        {   //플레이어2 캐릭터선택해제 (위화살표키)
 
             _player2Confirmed = false;
             _player2Selected = false;
@@ -99,7 +97,7 @@ public class CharacterSelection : MonoBehaviour
 
         if (_player1Confirmed && _player2Confirmed)
         {
-            Debug.Log("Game starting!");
+            SceneManager.LoadScene("GameScene"); //임의지정 바꿔야함
         }
     }
 
@@ -108,11 +106,13 @@ public class CharacterSelection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             _currentPlayer1 = (_currentPlayer1 - 1 + CharSelectedList.Count) % CharSelectedList.Count;
+            SoundManager.Instance.PlaySFX(SoundType.BtnMove);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             _currentPlayer1 = (_currentPlayer1 + 1) % CharSelectedList.Count;
+            SoundManager.Instance.PlaySFX(SoundType.BtnMove);
         }
 
         foreach (GameObject character in CharSelectedList)
@@ -127,11 +127,13 @@ public class CharacterSelection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             _currentPlayer2 = (_currentPlayer2 - 1 + CharSelectedList2.Count) % CharSelectedList2.Count;
+            SoundManager.Instance.PlaySFX(SoundType.BtnMove);
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             _currentPlayer2 = (_currentPlayer2 + 1) % CharSelectedList2.Count;
+            SoundManager.Instance.PlaySFX(SoundType.BtnMove);
         }
 
         foreach (GameObject character in CharSelectedList2)

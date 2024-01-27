@@ -12,7 +12,7 @@ public class MenuController : MonoBehaviour
     }
     void Start()
     {
-        //SoundManager.Instance.PlayBGM("MenuBGM");
+        SoundManager.Instance.PlayBGM(SoundType.MenuBGM);
         SelectPanel.SetActive(false);
     }
     public void StartBtn()
