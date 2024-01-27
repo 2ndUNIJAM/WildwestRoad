@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static SoundManager;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -24,7 +23,6 @@ public class CharacterSelection : MonoBehaviour
     private bool _player1Selected = false;
     private bool _player2Selected = false;
 
-    private bool _readyGameFlag = false;
     private void Start()
     {
         Init();
@@ -99,14 +97,8 @@ public class CharacterSelection : MonoBehaviour
 
         if (_player1Confirmed && _player2Confirmed)
         {
-            if (!_readyGameFlag)
-            {
-                GameManager.Instance.GetData(_currentPlayer1, _currentPlayer2);
-                SoundManager.Instance.PlaySFX(SoundType.BulletSfx2);
-                Invoke("FallingBulletSfx", 0.5f);
-                GameManager.Instance.StartGame();
-                _readyGameFlag = true;
-            }
+            GameManager.Instance.GetData(_currentPlayer1, _currentPlayer2);
+            GameManager.Instance.StartGame();
         }
     }
 
@@ -151,12 +143,6 @@ public class CharacterSelection : MonoBehaviour
         }
         CharSelectedList2[_currentPlayer2].SetActive(true);
     }
-    private void FallingBulletSfx()
-    {
-        SoundManager.Instance.PlaySFX(SoundType.FallingBullet);
-        Debug.Log("ds!");
-    }
-
     void ChangeColor(GameObject obj)
     {
         CanvasRenderer renderer = obj.GetComponent<CanvasRenderer>();
