@@ -104,13 +104,13 @@ public class ResultPanel : MonoBehaviour
         {
             switch (_currentIndex)
             {
-                case 0:
+                case 2:
                     ReSelect();
                     break;
                 case 1:
                     ReBattle();
                     break;
-                case 2:
+                case 0:
                     QuitGame();
                     break;
             }

@@ -1,12 +1,8 @@
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using JetBrains.Annotations;
 
 public class UIManager : MonoBehaviour
 {
