@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,6 +39,14 @@ public class UIManager : MonoBehaviour
     private GameObject _player2decisionState;
     [SerializeField]
     private GameObject _roundPlaceholder;
+    //[SerializeField]
+    //private GameObject _player1HpPlaceHolder;
+    //[SerializeField]
+    //private GameObject _player2HpPlaceHolder;
+   // [SerializeField]
+   // private GameObject _heart4PlaceHolder;
+   // [SerializeField]
+  //  private GameObject _heart3PlaceHolder;
 
     
 
@@ -49,11 +58,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-       StartCoroutine( test());
-       // _turnManager.OnTurnStarted += OnTurnStart;
-       // _turnManager.OnTurnEnded += OnTurnEnd;
-       // _turnManager.OnGameStarted += OnGameStart;
-        //_turnManager.OnGameEnded += OnGameEnd;
+       _turnManager.OnTurnStarted += OnTurnStart;
+        _turnManager.OnTurnEnded += OnTurnEnd;
+        _turnManager.OnGameStarted += OnGameStart;
+        _turnManager.OnGameEnded += OnGameEnd;
     }
 
     private IEnumerator GameStartCoroutine()
@@ -62,15 +70,19 @@ public class UIManager : MonoBehaviour
         {
             case PlayerType.A:
                 _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
+               
                 break;
             case PlayerType.B:
                 _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
+  
                 break;
             case PlayerType.C:
                 _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
+                
                 break;
             case PlayerType.D:
                 _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
+      
                 break;
         }
 
@@ -78,20 +90,25 @@ public class UIManager : MonoBehaviour
         {
             case PlayerType.A:
                 _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
+               
                 break;
             case PlayerType.B:
                 _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
+         
                 break;
             case PlayerType.C:
                 _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
+               
                 break;
             case PlayerType.D:
                 _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
+                
                 break;
         }
         // TODO: 게임 시작 시 시퀀스
         CountInitiate countInitiate = new CountInitiate();
             countInitiate.onAble(_countLis[0],_countLis[1], _countLis[2], _countLis[3]);
+        yield return new WaitForSeconds(4);
         switch (_turnManager.Player1.PlayerType)
         {
             case PlayerType.A:
