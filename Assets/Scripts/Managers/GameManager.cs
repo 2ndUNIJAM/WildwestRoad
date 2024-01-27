@@ -30,8 +30,6 @@ public class GameManager : SingletonBehaviour<GameManager>
             // 예외 처리 또는 기본값 지정
             return PlayerType.A; // 또는 다른 기본값으로 변경
         }
-        Debug.Log(_player1Type);
-        Debug.Log(_player2Type);
     }
 }
 

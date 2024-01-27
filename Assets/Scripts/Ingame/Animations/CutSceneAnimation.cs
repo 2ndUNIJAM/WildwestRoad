@@ -189,7 +189,7 @@ public class CutSceneAnimation : MonoBehaviour
             {
                 _result1.sprite = _resultImages[(int)player1Type * 3 + 1];
 
-                if (player1Type == PlayerType.A && result.IsUltimateUsed1)
+                if (player1Type == PlayerType.B && result.IsUltimateUsed1)
                     _result1.sprite = _specialImages[4];
             }
             // hit
