@@ -23,6 +23,10 @@ public class CutSceneAnimation : MonoBehaviour
     private Image _result1;
     [SerializeField]
     private Image _result2;
+    [SerializeField]
+    private Image _bg;
+    [SerializeField]
+    private Color _bgColor;
 
     [Header("Images")]
     // 순서: Attack, Dodge, Reload
@@ -66,6 +70,10 @@ public class CutSceneAnimation : MonoBehaviour
         Reset();
         var player1Type = GameManager.Instance.Player1Type;
         var player2Type = GameManager.Instance.Player2Type;
+
+        _bg.gameObject.SetActive(true);
+        _bg.color = Color.clear;
+        _bg.DOColor(_bgColor, .2f);
 
         // Show action image
         _action1.gameObject.SetActive(true);
@@ -221,9 +229,12 @@ public class CutSceneAnimation : MonoBehaviour
                 if (player1Type == PlayerType.D && result.HealthDiff1 == 0 && result.IsUltimateUsed1)
                     _result1.sprite = _specialImages[5];
             }
+
+            yield return new WaitForSeconds(2f);
         }
 
-        yield return new WaitForSeconds(2f);
+        _bg.DOColor(Color.clear, .2f);
+        yield return new WaitForSeconds(.2f);
 
         // Finish animation
         Reset();
@@ -231,6 +242,7 @@ public class CutSceneAnimation : MonoBehaviour
 
     private void Reset()
     {
+        _bg.gameObject.SetActive(false);
         _action1.gameObject.SetActive(false);
         _action2.gameObject.SetActive(false);
         _specialAction1.gameObject.SetActive(false);

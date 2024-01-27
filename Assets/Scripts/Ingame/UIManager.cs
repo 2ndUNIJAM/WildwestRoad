@@ -47,6 +47,9 @@ public class UIManager : MonoBehaviour
 
         _isGameRunning = true;
         _canSelectAction = true;
+
+        _playerUI1.SetReady(false);
+        _playerUI2.SetReady(false);
     }
 
     private IEnumerator GameEndCoroutine(GameResult result)
@@ -59,12 +62,8 @@ public class UIManager : MonoBehaviour
     private IEnumerator TurnStartCoroutine()
     {
         _roundNum++;
-        yield return new WaitForSeconds(.25f);
-
-        _playerUI1.SetReady(false);
-        _playerUI2.SetReady(false);
-        _hasPlayer1Selected = false;
-        _hasPlayer2Selected = false;
+        // TODO: 라운드 표시 업데이트
+        yield return null;
     }
 
     private IEnumerator TurnEndCoroutine(TurnResult result)
@@ -82,6 +81,12 @@ public class UIManager : MonoBehaviour
         _playerUI2.UpdatePlayerData(result, 2);
 
         _canSelectAction = true;
+
+        _playerUI1.SetReady(false);
+        _playerUI2.SetReady(false);
+
+        _hasPlayer1Selected = false;
+        _hasPlayer2Selected = false;
     }
 
     private void Update()

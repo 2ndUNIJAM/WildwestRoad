@@ -83,5 +83,12 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void SetReady(bool isReady)
-        => _readyText.gameObject.SetActive(isReady);
+    {
+        _readyText.gameObject.SetActive(isReady);
+
+        if (isReady)
+            _playerImage.sprite = _playerSpriteData.PlayerReadySprites[(int)_playerData.Type];
+        else
+            _playerImage.sprite = _playerSpriteData.PlayerSprites[(int)_playerData.Type];
+    }
 }
