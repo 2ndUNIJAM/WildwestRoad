@@ -124,9 +124,18 @@ public class CutSceneAnimation : MonoBehaviour
             _result2.gameObject.SetActive(true);
 
             // misfire
-            if (result.AmmoDiff1 == 0)
+            if (result.AmmoDiff1 == 0 && player1Type != PlayerType.C)
             {
                 _result2.sprite = _resultImages[(int)player1Type * 3];
+            }
+            // max misfire
+            else if (player1Type == PlayerType.C && result.HealthDiff2 == 0)
+            {
+                _result2.sprite = _resultImages[(int)player1Type * 3];
+
+                // max misfire with na ultimate
+                if (player2Type == PlayerType.D && result.IsUltimateUsed2)
+                    _result2.sprite = _specialImages[5];
             }
             // dodge
             else if (result.Action2 == PlayerActionType.Dodge)
@@ -162,9 +171,18 @@ public class CutSceneAnimation : MonoBehaviour
             _result1.gameObject.SetActive(true);
 
             // misfire
-            if (result.AmmoDiff2 == 0)
+            if (result.AmmoDiff2 == 0 && player2Type != PlayerType.C)
             {
                 _result1.sprite = _resultImages[(int)player2Type * 3];
+            }
+            // max misfire
+            else if (player2Type == PlayerType.C && result.HealthDiff1 == 0)
+            {
+                _result1.sprite = _resultImages[(int)player2Type * 3];
+
+                // max misfire with na ultimate
+                if (player1Type == PlayerType.D && result.IsUltimateUsed1)
+                    _result1.sprite = _specialImages[5];
             }
             // dodge
             else if (result.Action1 == PlayerActionType.Dodge)
