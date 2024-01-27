@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UISpriteAnimation : MonoBehaviour
+public class MenuAnim : MonoBehaviour
 {
     //-380  ->  500
     public RectTransform _rectTransform;
@@ -46,5 +46,13 @@ public class UISpriteAnimation : MonoBehaviour
             // 현재 프레임의 스프라이트로 변경
             _image.sprite = sprites[_currentFrame];
         }
+    }
+    public void ShowImage()
+    {
+        _rectTransform.DOSizeDelta(new Vector2(700,1100), 2.5f).SetEase(Ease.OutSine);
+    }
+    public void HideImage()
+    {
+        _rectTransform.DOSizeDelta(new Vector2(0, 0), 2.5f).SetEase(Ease.OutSine);
     }
 }
