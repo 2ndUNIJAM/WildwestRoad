@@ -18,7 +18,7 @@ public class Cylinder : MonoBehaviour
     private int _amount;
     public int Amount
     {
-        private get
+        get
         {
             return _amount;
         }
