@@ -117,7 +117,7 @@ public class CutSceneAnimation : MonoBehaviour
             _specialAction2.DOColor(Color.white, .5f);
         }
 
-        if (player1Type == PlayerType.C && result.IsUltimateUsed1)
+        if (player2Type == PlayerType.C && result.IsUltimateUsed2)
         {
             yield return new WaitForSeconds(1f);
 
