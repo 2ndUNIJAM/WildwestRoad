@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
@@ -12,6 +13,16 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public PlayerType Player1Type => _player1Type;
     public PlayerType Player2Type => _player2Type;
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 
     public void GetData(int _1p, int _2p)
     {

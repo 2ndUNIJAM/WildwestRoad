@@ -98,7 +98,7 @@ public class CharacterSelection : MonoBehaviour
         if (_player1Confirmed && _player2Confirmed)
         {
             GameManager.Instance.GetData(_currentPlayer1, _currentPlayer2);
-            //SceneManager.LoadScene("GameScene"); //임의지정 바꿔야함!!
+            GameManager.Instance.StartGame();
         }
     }
 
