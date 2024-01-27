@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,41 +70,53 @@ public class CutSceneAnimation : MonoBehaviour
         // Show action image
         _action1.gameObject.SetActive(true);
         _action1.sprite = _leftActionImages[(int)player1Type * 3 + (int)result.Action1];
+        _action1.color = Color.clear;
+        _action1.DOColor(Color.white, .2f);
 
         if (player1Type == PlayerType.A && result.IsUltimateUsed1)
         {
             yield return new WaitForSeconds(1f);
-            // TODO: Fade in
+
             _specialAction1.gameObject.SetActive(true);
             _specialAction1.sprite = _specialImages[0];
+            _specialAction1.color = Color.clear;
+            _specialAction1.DOColor(Color.white, .5f);
         }
 
         if (player1Type == PlayerType.C && result.IsUltimateUsed1)
         {
             yield return new WaitForSeconds(1f);
-            // TODO: Fade in
+
             _specialAction1.gameObject.SetActive(true);
             _specialAction1.sprite = _specialImages[2];
+            _specialAction1.color = Color.clear;
+            _specialAction1.DOColor(Color.white, .5f);
         }
 
         yield return new WaitForSeconds(2f);
         _action2.gameObject.SetActive(true);
         _action2.sprite = _rightActionImages[(int)player2Type * 3 + (int)result.Action2];
+        _action2.color = Color.clear;
+        _action2.DOColor(Color.white, .2f);
 
         if (player2Type == PlayerType.A && result.IsUltimateUsed2)
         {
             yield return new WaitForSeconds(1f);
-            // TODO: Fade in
-            _specialAction1.gameObject.SetActive(true);
+
+            _specialAction2.gameObject.SetActive(true);
             _specialAction2.sprite = _specialImages[1];
+            _specialAction2.color = Color.clear;
+            _specialAction2.DOColor(Color.white, .5f);
         }
 
         if (player1Type == PlayerType.C && result.IsUltimateUsed1)
         {
             yield return new WaitForSeconds(1f);
-            // TODO: Fade in
-            _specialAction1.gameObject.SetActive(true);
+
+            _specialAction2.gameObject.SetActive(true);
             _specialAction2.sprite = _specialImages[3];
+            _specialAction2.color = Color.clear;
+            _specialAction2.DOColor(Color.white, .5f);
         }
 
         yield return new WaitForSeconds(2f);
@@ -118,10 +131,14 @@ public class CutSceneAnimation : MonoBehaviour
         {
             _waiting2.gameObject.SetActive(true);
             _waiting2.sprite = _waitingImages[(int)player2Type];
+            _waiting2.color = Color.clear;
+            _waiting2.DOColor(Color.white, .2f);
 
             yield return new WaitForSeconds(3f);
 
             _result2.gameObject.SetActive(true);
+            _result2.color = Color.clear;
+            _result2.DOColor(Color.white, .2f);
 
             // misfire
             if (result.AmmoDiff1 == 0 && player1Type != PlayerType.C)
@@ -165,10 +182,14 @@ public class CutSceneAnimation : MonoBehaviour
 
             _waiting1.gameObject.SetActive(true);
             _waiting1.sprite = _waitingImages[(int)player1Type];
+            _waiting1.color = Color.clear;
+            _waiting1.DOColor(Color.white, .2f);
 
             yield return new WaitForSeconds(3f);
 
             _result1.gameObject.SetActive(true);
+            _result1.color = Color.clear;
+            _result1.DOColor(Color.white, .2f);
 
             // misfire
             if (result.AmmoDiff2 == 0 && player2Type != PlayerType.C)
