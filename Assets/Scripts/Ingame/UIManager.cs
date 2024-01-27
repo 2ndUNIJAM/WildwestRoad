@@ -6,6 +6,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,44 +14,16 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TurnManager _turnManager;
     [SerializeField]
-    private List<GameObject> _countLis;
+    private PlayerUI _playerUI1;
     [SerializeField]
-    private List<Sprite> _playCharacterA;
+    private PlayerUI _playerUI2;
     [SerializeField]
-    private List<Sprite> _playCharacterB;
-    [SerializeField]
-    private List<Sprite> _playCharacterC;
-    [SerializeField]
-    private List<Sprite> _playCharacterD;
-
-    [SerializeField]
-    private GameObject _player1PlaceHolder;
-    [SerializeField]
-    private GameObject _player2PlaceHolder;
-    [SerializeField]
-    private GameObject _roundHolder;
-    [SerializeField]
-    private GameObject _hitRatePlayer1Holder;
-    [SerializeField]
-    private GameObject _hitRatePlayer2Holder;
-    [SerializeField]
-    private GameObject _player1decisionState;
-    [SerializeField]
-    private GameObject _player2decisionState;
-    [SerializeField]
-    private GameObject _roundPlaceholder;
-    //[SerializeField]
-    //private GameObject _player1HpPlaceHolder;
-    //[SerializeField]
-    //private GameObject _player2HpPlaceHolder;
-   // [SerializeField]
-   // private GameObject _heart4PlaceHolder;
-   // [SerializeField]
-  //  private GameObject _heart3PlaceHolder;
-
-    
+    private CutSceneAnimation _cutSceneAnimation;
 
     private bool _canSelectAction = false;
+    private bool _isGameRunning = false;
+    private bool _hasPlayer1Selected = false;
+    private bool _hasPlayer2Selected = false;
     private int _roundNum = 0;
 
     /// <summary>
@@ -58,7 +31,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-       _turnManager.OnTurnStarted += OnTurnStart;
+        _turnManager.OnTurnStarted += OnTurnStart;
         _turnManager.OnTurnEnded += OnTurnEnd;
         _turnManager.OnGameStarted += OnGameStart;
         _turnManager.OnGameEnded += OnGameEnd;
@@ -66,118 +39,97 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator GameStartCoroutine()
     {
-        switch (_turnManager.Player1.PlayerType)
-        {
-            case PlayerType.A:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
-               
-                break;
-            case PlayerType.B:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
-  
-                break;
-            case PlayerType.C:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
-                
-                break;
-            case PlayerType.D:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
-      
-                break;
-        }
-
-        switch (_turnManager.Player2.PlayerType)
-        {
-            case PlayerType.A:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
-               
-                break;
-            case PlayerType.B:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
-         
-                break;
-            case PlayerType.C:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
-               
-                break;
-            case PlayerType.D:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
-                
-                break;
-        }
-        // TODO: 게임 시작 시 시퀀스
-        CountInitiate countInitiate = new CountInitiate();
-            countInitiate.onAble(_countLis[0],_countLis[1], _countLis[2], _countLis[3]);
-        yield return new WaitForSeconds(4);
-        switch (_turnManager.Player1.PlayerType)
-        {
-            case PlayerType.A:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[1];
-                break;
-            case PlayerType.B:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[1];
-                break;
-            case PlayerType.C:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[1];
-                break;
-            case PlayerType.D:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[1];
-                break;
-        }
-
-        switch (_turnManager.Player2.PlayerType)
-        {
-            case PlayerType.A:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[1];
-                break;
-            case PlayerType.B:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[1];
-                break;
-            case PlayerType.C:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[1];
-                break;
-            case PlayerType.D:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[1];
-                break;
-        }
-
+        _playerUI1.Init(new PlayerData(_turnManager.Player1));
+        _playerUI2.Init(new PlayerData(_turnManager.Player2));
         yield return null;
+
+        // TODO: 시작 카운팅
+
+        _isGameRunning = true;
+        _canSelectAction = true;
     }
 
     private IEnumerator GameEndCoroutine(GameResult result)
     {
+        _isGameRunning = false;
         // TODO: 게임 종료 시 시퀀스
         yield return null;
     }
 
     private IEnumerator TurnStartCoroutine()
     {
-        _canSelectAction = true;
         _roundNum++;
-        float player1Hitrate = _turnManager.Player1.Ammo / _turnManager.Player1.MaxAmmo;
-        float player2Hitrate = _turnManager.Player2.Ammo / _turnManager.Player2.MaxAmmo;
-        _hitRatePlayer1Holder.GetComponent<TextMeshProUGUI>().text = "Hit rate " + player1Hitrate.ToString();
-        _hitRatePlayer2Holder.GetComponent<TextMeshProUGUI>().text = "Hit rate " + player2Hitrate.ToString();
-        _player1decisionState.SetActive(true);
-        _player2decisionState.SetActive(true);
-        _roundPlaceholder.GetComponent<TextMeshProUGUI>().text = _roundNum.ToString() + " Round";
-        // TODO: 턴 시작 시 시퀀스
-        yield return null;
+        yield return new WaitForSeconds(.25f);
+
+        _playerUI1.SetReady(false);
+        _playerUI2.SetReady(false);
+        _hasPlayer1Selected = false;
+        _hasPlayer2Selected = false;
     }
 
     private IEnumerator TurnEndCoroutine(TurnResult result)
     {
         _canSelectAction = false;
-        // TODO: 턴 종료 시 시퀀스
-        yield return null;
+        Debug.Log(result);
+
+        StartCoroutine(_playerUI1.CylinderAnimation(1f));
+        StartCoroutine(_playerUI2.CylinderAnimation(1f));
+        yield return new WaitForSeconds(1f);
+
+        yield return _cutSceneAnimation.AnimationCoroutine(result);
+
+        _playerUI1.UpdatePlayerData(result, 1);
+        _playerUI2.UpdatePlayerData(result, 2);
+
+        _canSelectAction = true;
     }
 
     private void Update()
     {
-        if (!_canSelectAction)
+        if (!_canSelectAction || !_isGameRunning)
             return;
 
-        // TODO: 턴 시작 후 인풋 받기
+        if (Input.GetKeyDown(KeyCode.Z) && !_hasPlayer1Selected)
+        {
+            _turnManager.SetPlayerAction(1, PlayerActionType.Attack);
+            _hasPlayer1Selected = true;
+            _playerUI1.SetReady(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && !_hasPlayer1Selected)
+        {
+            _turnManager.SetPlayerAction(1, PlayerActionType.Dodge);
+            _hasPlayer1Selected = true;
+            _playerUI1.SetReady(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C) && !_hasPlayer1Selected)
+        {
+            _turnManager.SetPlayerAction(1, PlayerActionType.Reload);
+            _hasPlayer1Selected = true;
+            _playerUI1.SetReady(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B) && !_hasPlayer2Selected)
+        {
+            _turnManager.SetPlayerAction(2, PlayerActionType.Attack);
+            _hasPlayer2Selected = true;
+            _playerUI2.SetReady(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.N) && !_hasPlayer2Selected)
+        {
+            _turnManager.SetPlayerAction(2, PlayerActionType.Dodge);
+            _hasPlayer2Selected = true;
+            _playerUI2.SetReady(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M) && !_hasPlayer2Selected)
+        {
+            _turnManager.SetPlayerAction(2, PlayerActionType.Reload);
+            _hasPlayer2Selected = true;
+            _playerUI2.SetReady(true);
+        }
     }
 
     private void OnGameStart()
@@ -191,75 +143,4 @@ public class UIManager : MonoBehaviour
 
     private void OnTurnEnd(TurnResult result)
         => StartCoroutine(TurnEndCoroutine(result));
-   private IEnumerator test()
-    {
-        PlayerType test = PlayerType.A;
-        switch (test)
-        {
-            case PlayerType.A:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
-                break;
-            case PlayerType.B:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
-                break;
-            case PlayerType.C:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
-                break;
-            case PlayerType.D:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
-                break;
-        }
-
-        switch (test)
-        {
-            case PlayerType.A:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
-                break;
-            case PlayerType.B:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[0];
-                break;
-            case PlayerType.C:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[0];
-                break;
-            case PlayerType.D:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[0];
-                break;
-        }
-        CountInitiate countInitiate = new CountInitiate();
-        countInitiate.onAble(_countLis[0], _countLis[1], _countLis[2], _countLis[3]);
-
-        yield return new WaitForSeconds(4);
-        
-        switch (test)
-        {
-            case PlayerType.A:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[1];
-                break;
-            case PlayerType.B:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[1];
-                break;
-            case PlayerType.C:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[1];
-                break;
-            case PlayerType.D:
-                _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[1];
-                break;
-        }
-
-        switch (test)
-        {
-            case PlayerType.A:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[1];
-                break;
-            case PlayerType.B:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterB[1];
-                break;
-            case PlayerType.C:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterC[1];
-                break;
-            case PlayerType.D:
-                _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterD[1];
-                break;
-        }
-    }
 }

@@ -132,18 +132,20 @@ public class TurnManager : MonoBehaviour, ITurnManager
 
         return true;
     }
+}
 
-    private struct PlayerData
+public struct PlayerData
+{
+    public int Health;
+    public int MaxAmmo;
+    public int Ammo;
+    public PlayerType Type;
+
+    public PlayerData(Player player)
     {
-        public int Health;
-        public int MaxAmmo;
-        public int Ammo;
-
-        public PlayerData(Player player)
-        {
-            Health = player.Health;
-            MaxAmmo = player.MaxAmmo;
-            Ammo = player.Ammo;
-        }
+        Health = player.Health;
+        MaxAmmo = player.MaxAmmo;
+        Ammo = player.Ammo;
+        Type = player.PlayerType;
     }
 }
