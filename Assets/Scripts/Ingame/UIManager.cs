@@ -6,6 +6,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class UIManager : MonoBehaviour
 {
@@ -58,6 +59,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+      
+        
+        _turnManager.SetPlayerAction(1, PlayerActionType.Attack);
+        _turnManager.SetPlayerAction(2, PlayerActionType.Dodge);
        _turnManager.OnTurnStarted += OnTurnStart;
         _turnManager.OnTurnEnded += OnTurnEnd;
         _turnManager.OnGameStarted += OnGameStart;
@@ -66,7 +71,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator GameStartCoroutine()
     {
-        switch (_turnManager.Player1.PlayerType)
+        switch (PlayerType.A)
         {
             case PlayerType.A:
                 _player1PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
@@ -86,7 +91,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-        switch (_turnManager.Player2.PlayerType)
+        switch (PlayerType.B)
         {
             case PlayerType.A:
                 _player2PlaceHolder.GetComponent<Image>().sprite = _playCharacterA[0];
