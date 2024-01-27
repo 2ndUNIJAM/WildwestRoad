@@ -6,6 +6,8 @@ public class MenuController : MonoBehaviour
 {
 
     public GameObject SelectPanel;
+    public GameObject HowToPlayPanel;
+    public GameObject MenuAnim;
     private void Awake()
     {
         Screen.SetResolution(1920, 1080, false);
@@ -26,10 +28,10 @@ public class MenuController : MonoBehaviour
     public void HowToPlayBtn()
     {
         //게임설명과 관련된 페널창 띄우기
-    }
-
-    public void ExplainPanel()
-    {
-
+        HowToPlayPanel.SetActive(true);
+        HowToPlayPanel.GetComponent<HowToPlay>().LeftImageShow();
+        HowToPlayPanel.GetComponent<HowToPlay>().RightImageShow();
+        HowToPlayPanel.GetComponent<HowToPlay>().CenterImageShow();
+        MenuAnim.GetComponent<MenuAnim>().HideImage();
     }
 }

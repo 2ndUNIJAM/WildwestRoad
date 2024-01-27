@@ -7,7 +7,7 @@ public class TitleAnim : MonoBehaviour
 {
     public RectTransform uiTransform;
     public float animationDuration = 2.0f;
-    public Vector2 targetSize = new Vector2(1920, 1080); // 목표 크기 설정
+    public Vector2 targetSize = new Vector2(840, 130); // 목표 크기 설정
 
     void Start()
     {
