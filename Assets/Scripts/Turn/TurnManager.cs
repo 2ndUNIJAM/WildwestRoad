@@ -59,9 +59,9 @@ public class TurnManager : MonoBehaviour, ITurnManager
         OnTurnEnded?.Invoke(CalculateTurnResult());
 
         if (_player1.Health <= 0 && _player2.Health > 0)
-            OnGameEnded?.Invoke(GameResult.Player1Win);
-        else if (_player1.Health > 0 && _player2.Health <= 0)
             OnGameEnded?.Invoke(GameResult.Player2Win);
+        else if (_player1.Health > 0 && _player2.Health <= 0)
+            OnGameEnded?.Invoke(GameResult.Player1Win);
         else if (_player1.Health <= 0 && _player2.Health <= 0)
             OnGameEnded?.Invoke(GameResult.Draw);
         else

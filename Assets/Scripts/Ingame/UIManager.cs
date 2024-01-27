@@ -19,12 +19,17 @@ public class UIManager : MonoBehaviour
     private PlayerUI _playerUI2;
     [SerializeField]
     private CutSceneAnimation _cutSceneAnimation;
+    [SerializeField]
+    private TextMeshProUGUI _roundText;
+    [SerializeField]
+    private TextMeshProUGUI _countText;
 
     private bool _canSelectAction = false;
     private bool _isGameRunning = false;
     private bool _hasPlayer1Selected = false;
     private bool _hasPlayer2Selected = false;
-    private int _roundNum = 0;
+    private int _roundNum = 1;
+    private GameResult _gameResult;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -41,28 +46,30 @@ public class UIManager : MonoBehaviour
     {
         _playerUI1.Init(new PlayerData(_turnManager.Player1));
         _playerUI2.Init(new PlayerData(_turnManager.Player2));
-        yield return null;
-
-        // TODO: 시작 카운팅
 
         _isGameRunning = true;
-        _canSelectAction = true;
+
+        yield return null;
 
         _playerUI1.SetReady(false);
         _playerUI2.SetReady(false);
-    }
 
-    private IEnumerator GameEndCoroutine(GameResult result)
-    {
-        _isGameRunning = false;
-        // TODO: 게임 종료 시 시퀀스
-        yield return null;
+        for (int i = 0; i < 3; i++)
+        {
+            _countText.text = (3 - i).ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        _countText.text = "Start!";
+        yield return new WaitForSeconds(1f);
+
+        _countText.gameObject.SetActive(false);
+
+        _canSelectAction = true;
     }
 
     private IEnumerator TurnStartCoroutine()
     {
-        _roundNum++;
-        // TODO: 라운드 표시 업데이트
         yield return null;
     }
 
@@ -80,6 +87,13 @@ public class UIManager : MonoBehaviour
         _playerUI1.UpdatePlayerData(result, 1);
         _playerUI2.UpdatePlayerData(result, 2);
 
+        if (!_isGameRunning)
+        {
+            // 게임 종료 시 여기 호출됨
+            Debug.Log(_gameResult);
+            yield break;
+        }
+
         _canSelectAction = true;
 
         _playerUI1.SetReady(false);
@@ -87,6 +101,9 @@ public class UIManager : MonoBehaviour
 
         _hasPlayer1Selected = false;
         _hasPlayer2Selected = false;
+
+        _roundNum++;
+        _roundText.text = $"Round {_roundNum}";
     }
 
     private void Update()
@@ -141,7 +158,10 @@ public class UIManager : MonoBehaviour
         => StartCoroutine(GameStartCoroutine());
 
     private void OnGameEnd(GameResult result)
-        => StartCoroutine(GameEndCoroutine(result));
+    {
+        _isGameRunning = false;
+        _gameResult = result;
+    }
 
     private void OnTurnStart()
         => StartCoroutine(TurnStartCoroutine());
