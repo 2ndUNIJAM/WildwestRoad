@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SoundManager : SingletonBehaviour<SoundManager>
 {
-   
-    
+
+
     [System.Serializable]
     public class Sound
     {
@@ -72,9 +73,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         sfxPlayers.Add(newSFXPlayer);
         return newSFXPlayer;
     }
-
 }
-
 public enum SoundType
 {
    MenuBGM=0,
@@ -100,4 +99,5 @@ public enum SoundType
    SwallowSfx=20,
    CountGame=21,
    BtnMove=22
+
 }
