@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _roundPlaceholder;
 
+    
+
     private bool _canSelectAction = false;
     private int _roundNum = 0;
 
@@ -47,7 +49,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        test();
+       StartCoroutine( test());
        // _turnManager.OnTurnStarted += OnTurnStart;
        // _turnManager.OnTurnEnded += OnTurnEnd;
        // _turnManager.OnGameStarted += OnGameStart;
@@ -172,7 +174,7 @@ public class UIManager : MonoBehaviour
 
     private void OnTurnEnd(TurnResult result)
         => StartCoroutine(TurnEndCoroutine(result));
-   private void test()
+   private IEnumerator test()
     {
         PlayerType test = PlayerType.A;
         switch (test)
@@ -208,6 +210,8 @@ public class UIManager : MonoBehaviour
         }
         CountInitiate countInitiate = new CountInitiate();
         countInitiate.onAble(_countLis[0], _countLis[1], _countLis[2], _countLis[3]);
+
+        yield return new WaitForSeconds(4);
         
         switch (test)
         {
