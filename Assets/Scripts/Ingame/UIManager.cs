@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI _roundText;
     [SerializeField]
     private TextMeshProUGUI _countText;
+    [SerializeField]
+    private ResultPanel _resultPanel;
 
     private bool _canSelectAction = false;
     private bool _isGameRunning = false;
@@ -87,17 +89,19 @@ public class UIManager : MonoBehaviour
         _playerUI1.UpdatePlayerData(result, 1);
         _playerUI2.UpdatePlayerData(result, 2);
 
+        _playerUI1.SetReady(false);
+        _playerUI2.SetReady(false);
+
         if (!_isGameRunning)
         {
             // 게임 종료 시 여기 호출됨
+            yield return new WaitForSeconds(1f);
             Debug.Log(_gameResult);
+            _resultPanel.Init(_gameResult);
             yield break;
         }
 
         _canSelectAction = true;
-
-        _playerUI1.SetReady(false);
-        _playerUI2.SetReady(false);
 
         _hasPlayer1Selected = false;
         _hasPlayer2Selected = false;

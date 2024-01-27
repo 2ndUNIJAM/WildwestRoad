@@ -53,8 +53,8 @@ public class ResultPanel : MonoBehaviour
         }
         else if (result == GameResult.Player2Win)
         {
-            _winnerType = GameManager.Instance.Player1Type;
-            _loserType = GameManager.Instance.Player2Type;
+            _winnerType = GameManager.Instance.Player2Type;
+            _loserType = GameManager.Instance.Player1Type;
         }
 
         _wantedImage.gameObject.SetActive(true);
