@@ -1,82 +1,139 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
-using System.Runtime.CompilerServices;
+using TMPro;
+using DG.Tweening;
 public class ResultPanel : MonoBehaviour
 {
-
     [SerializeField]
-    private List<GameObject> _resultChoice;
+    private List<Image> _options;
+    [SerializeField]
+    private List<Sprite> _resultSprites;
+    [SerializeField]
+    private List<Image> _winnerImages;
+    [SerializeField]
+    private Image _wantedImage;
+    [SerializeField]
+    private Image _bg;
+    [SerializeField]
+    private Color _bgColor;
 
-    public struct ResultData
+    private PlayerType _winnerType;
+    private PlayerType _loserType;
+    private GameResult _gameResult;
+
+    private int _currentIndex;
+    public int CurrentIndex
     {
-        public int winner;
-        public int winnerPlayerType;
-        public int loserPlayerType;
-         public ResultData (int winner,int winnerPlayerType,int loserPlayerType) 
+        get => _currentIndex;
+        set
         {
-            this.winner = winner;
-            this.winnerPlayerType = winnerPlayerType;
-            this.loserPlayerType = loserPlayerType;
+            _currentIndex = value;
+            for (int i = 0; i < _options.Count; i++)
+            {
+                if (i == value)
+                    _options[i].color = Color.black;
+                else
+                    _options[i].color = Color.black.SetAlpha(.5f);
+            }
         }
     }
-    public ResultData resultData;
 
+    public void Init(GameResult result)
+    {
+        _bg.gameObject.SetActive(true);
+        _bg.color = Color.clear;
+        _bg.DOColor(_bgColor, .2f);
 
-    private int _currentIndex=1;
+        // TODO: 무승부 시 예외처리
+        if (result == GameResult.Player1Win)
+        {
+            _winnerType = GameManager.Instance.Player1Type;
+            _loserType = GameManager.Instance.Player2Type;
+        }
+        else if (result == GameResult.Player2Win)
+        {
+            _winnerType = GameManager.Instance.Player1Type;
+            _loserType = GameManager.Instance.Player2Type;
+        }
+
+        _wantedImage.gameObject.SetActive(true);
+        _wantedImage.sprite = _resultSprites[(int)_loserType];
+
+        for (int i = 0; i < _winnerImages.Count; i++)
+        {
+            _winnerImages[i].gameObject.SetActive(i == (int)_winnerType);
+        }
+
+        var winnerImage = _winnerImages[(int)_winnerType];
+        var startPos = winnerImage.GetComponent<RectTransform>().anchoredPosition;
+        winnerImage.GetComponent<RectTransform>().anchoredPosition += new Vector2(-1920, 0);
+        winnerImage.GetComponent<RectTransform>().DOAnchorPos(startPos, 1f).SetEase(Ease.OutCubic);
+
+        CurrentIndex = 2;
+    }
+
     private void Update()
     {
-        if (resultData.winner == 1 && Input.GetKeyDown(KeyCode.S) && _currentIndex > 0)
+        if (_gameResult == GameResult.Player1Win && Input.GetKeyDown(KeyCode.S) && _currentIndex > 0)
         {
-            _currentIndex--;
+            CurrentIndex--;
         }
-        else if
-            (resultData.winner == 1 && Input.GetKeyDown(KeyCode.W )&& _currentIndex < 2){
-            _currentIndex++;
-        }
-        else if(resultData.winner == 2 && Input.GetKeyDown(KeyCode.DownArrow) && _currentIndex > 0)
+        else if (_gameResult == GameResult.Player1Win && Input.GetKeyDown(KeyCode.W) && _currentIndex < 2)
         {
-            _currentIndex--;
+            CurrentIndex++;
         }
-        else if(resultData.winner == 2 && Input.GetKeyDown(KeyCode.UpArrow) && _currentIndex > 2)
+        else if (_gameResult == GameResult.Draw && Input.GetKeyDown(KeyCode.S) && _currentIndex > 0)
         {
-            _currentIndex++;
+            CurrentIndex--;
+        }
+        else if (_gameResult == GameResult.Draw && Input.GetKeyDown(KeyCode.W) && _currentIndex > 2)
+        {
+            CurrentIndex++;
+        }
+        else if (_gameResult == GameResult.Player2Win && Input.GetKeyDown(KeyCode.DownArrow) && _currentIndex > 0)
+        {
+            CurrentIndex--;
+        }
+        else if (_gameResult == GameResult.Player2Win && Input.GetKeyDown(KeyCode.UpArrow) && _currentIndex > 2)
+        {
+            CurrentIndex++;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            switch (_currentIndex) { 
+            switch (_currentIndex)
+            {
                 case 0:
-                QuitGame();
-                break;
-            case 1:
-                ReBattle(resultData);
-                break;
-            case 2:
-                ReSelect();
-                break;
-        }
+                    ReSelect();
+                    break;
+                case 1:
+                    ReBattle();
+                    break;
+                case 2:
+                    QuitGame();
+                    break;
+            }
         }
     }
     public void QuitGame()
     {
         Application.Quit();
     }
-    public void ReBattle(ResultData resultData)
+
+    public void ReBattle()
     {
-        int _1p = resultData.winnerPlayerType;
-        int _2p = resultData.loserPlayerType;
-   
-   
-        GameManager.Instance.GetData(_1p, _2p);
-        SceneManager.LoadScene("GameScene");
+        GameManager.Instance.StartGame();
     }
+
     public void ReSelect()
     {
-        SceneManager.LoadScene("MenuScene");
+        GameManager.Instance.BackToMain();
+    }
+
+    [ContextMenu("Test")]
+    public void Test()
+    {
+        Init(GameResult.Player1Win);
     }
 }
