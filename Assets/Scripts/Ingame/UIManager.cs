@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             _countText.text = (3 - i).ToString();
-            
+
             yield return new WaitForSeconds(1f);
         }
 
@@ -69,9 +69,10 @@ public class UIManager : MonoBehaviour
 
         _canSelectAction = true;
     }
-    private IEnumerator BgmCouroutine()
+    private IEnumerator BgmCoroutine()
     {
         SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
+        yield return null;
     }
     private IEnumerator TurnStartCoroutine()
     {
