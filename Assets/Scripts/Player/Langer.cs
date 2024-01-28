@@ -4,8 +4,8 @@ public class Langer : Player
 {
     public Langer()
     {
-        _maxHealth = 5;
-        _health = 5;
+        _maxHealth = 4;
+        _health = 4;
         _maxAmmo = 6;
         _ammo = 1;
         _playerType = PlayerType.A;
