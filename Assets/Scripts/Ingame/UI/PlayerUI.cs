@@ -16,6 +16,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _readyText;
     [SerializeField]
+    private GameObject _dodge;
+    [SerializeField]
     private RectTransform _cylinderPos;
     private Cylinder _cylinder;
     private PlayerData _playerData;
@@ -82,9 +84,10 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void SetReady(bool isReady)
+    public void SetReady(bool isReady, int dodgeStreak)
     {
         _readyText.gameObject.SetActive(isReady);
+        _dodge.SetActive(!isReady && (dodgeStreak >= 2));
 
         if (isReady)
             _playerImage.sprite = _playerSpriteData.PlayerReadySprites[(int)_playerData.Type];

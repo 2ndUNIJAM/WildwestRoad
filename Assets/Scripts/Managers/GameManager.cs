@@ -14,6 +14,17 @@ public class GameManager : SingletonBehaviour<GameManager>
     public PlayerType Player1Type => _player1Type;
     public PlayerType Player2Type => _player2Type;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Screen.SetResolution(1920, 1080, true);
+        Application.targetFrameRate = 60;
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("GameScene");

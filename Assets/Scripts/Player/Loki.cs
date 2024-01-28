@@ -23,4 +23,5 @@ public class Loki : Player
             _health = Math.Clamp(_health - 1, 0, _maxHealth);
         }
     }
+   
 }
