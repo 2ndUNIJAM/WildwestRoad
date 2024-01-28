@@ -3454,6 +3454,10 @@ MonoBehaviour:
   - SoundType: 0
     clip: {fileID: 0}
   _sfxs:
+  - SoundType: 0
+    clip: {fileID: 8300000, guid: cd76c52b3a7628043bb7d2eeed982330, type: 3}
+  - SoundType: 1
+    clip: {fileID: 8300000, guid: 99e030241fcb7a64eb8adff766a6cece, type: 3}
   - SoundType: 2
     clip: {fileID: 8300000, guid: 0299e71925d12ac4eb8760ebb214bbdc, type: 3}
   - SoundType: 3
@@ -3471,7 +3475,7 @@ MonoBehaviour:
   - SoundType: 9
     clip: {fileID: 8300000, guid: 3c57b914752d74b46b3325d58c4f3dd3, type: 3}
   - SoundType: 10
-    clip: {fileID: 8300000, guid: b13e24b0d5195044abaa723b1aa67db4, type: 3}
+    clip: {fileID: 8300000, guid: f999d28974b9b3e459ec767bf5173eff, type: 3}
   - SoundType: 11
     clip: {fileID: 8300000, guid: 6c933e5e0c7350b4ba7464994092db2e, type: 3}
   - SoundType: 12
@@ -3491,11 +3495,13 @@ MonoBehaviour:
   - SoundType: 19
     clip: {fileID: 8300000, guid: 3fe5bde3778a1144f8aada34836daa29, type: 3}
   - SoundType: 20
-    clip: {fileID: 8300000, guid: d99b5ef440895344caeebd69d76c0c48, type: 3}
+    clip: {fileID: 8300000, guid: cc2035f0b07e3d94294be5c4d352a850, type: 3}
   - SoundType: 21
     clip: {fileID: 8300000, guid: b1e2fe4dc42c846418f1830ee1dd1cf9, type: 3}
   - SoundType: 22
     clip: {fileID: 8300000, guid: 053898cf55196954ba78f84f9737713f, type: 3}
+  - SoundType: 23
+    clip: {fileID: 8300000, guid: dd50ba9a1f5735e468771970675772ac, type: 3}
   _bgmPlayer: {fileID: 1765895175}
   sfxPlayers: []
 --- !u!4 &1765895174

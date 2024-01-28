@@ -78,17 +78,19 @@ public class CutSceneAnimation : MonoBehaviour
         // Show action image
         _action1.gameObject.SetActive(true);
         _action1.sprite = _leftActionImages[(int)player1Type * 3 + (int)result.Action1];
+        if (result.Action1 == PlayerActionType.Reload) SoundManager.Instance.PlaySFX(SoundType.ReloadingSfx);
         _action1.color = Color.clear;
         _action1.DOColor(Color.white, .2f);
 
         if (player1Type == PlayerType.A && result.IsUltimateUsed1)
         {
             yield return new WaitForSeconds(1f);
-
+            
             _specialAction1.gameObject.SetActive(true);
             _specialAction1.sprite = _specialImages[0];
             _specialAction1.color = Color.clear;
             _specialAction1.DOColor(Color.white, .5f);
+            SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
         }
 
         if (player1Type == PlayerType.C && result.IsUltimateUsed1)
@@ -99,11 +101,13 @@ public class CutSceneAnimation : MonoBehaviour
             _specialAction1.sprite = _specialImages[2];
             _specialAction1.color = Color.clear;
             _specialAction1.DOColor(Color.white, .5f);
+            SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
         }
 
         yield return new WaitForSeconds(2f);
         _action2.gameObject.SetActive(true);
         _action2.sprite = _rightActionImages[(int)player2Type * 3 + (int)result.Action2];
+        if (result.Action2 == PlayerActionType.Reload) SoundManager.Instance.PlaySFX(SoundType.ReloadingSfx);
         _action2.color = Color.clear;
         _action2.DOColor(Color.white, .2f);
 
@@ -115,6 +119,7 @@ public class CutSceneAnimation : MonoBehaviour
             _specialAction2.sprite = _specialImages[1];
             _specialAction2.color = Color.clear;
             _specialAction2.DOColor(Color.white, .5f);
+            SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
         }
 
         if (player2Type == PlayerType.C && result.IsUltimateUsed2)
@@ -125,6 +130,7 @@ public class CutSceneAnimation : MonoBehaviour
             _specialAction2.sprite = _specialImages[3];
             _specialAction2.color = Color.clear;
             _specialAction2.DOColor(Color.white, .5f);
+            SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
         }
 
         yield return new WaitForSeconds(2f);
@@ -139,6 +145,7 @@ public class CutSceneAnimation : MonoBehaviour
         {
             _waiting2.gameObject.SetActive(true);
             _waiting2.sprite = _waitingImages[(int)player2Type];
+            SoundManager.Instance.PlaySFX(SoundType.SwallowSfx,2.0f);
             _waiting2.color = Color.clear;
             _waiting2.DOColor(Color.white, .2f);
 
@@ -152,6 +159,7 @@ public class CutSceneAnimation : MonoBehaviour
             if (result.AmmoDiff1 == 0 && player1Type != PlayerType.C)
             {
                 _result2.sprite = _resultImages[(int)player1Type * 3];
+                
             }
             // max misfire
             else if (player1Type == PlayerType.C && result.HealthDiff2 == 0)
@@ -161,22 +169,45 @@ public class CutSceneAnimation : MonoBehaviour
                 // max misfire with na ultimate
                 if (player2Type == PlayerType.D && result.IsUltimateUsed2)
                     _result2.sprite = _specialImages[5];
+                SoundManager.Instance.PlaySFX(SoundType.NadeshikoSfx);
             }
             // dodge
             else if (result.Action2 == PlayerActionType.Dodge)
             {
                 _result2.sprite = _resultImages[(int)player2Type * 3 + 1];
-
+                SoundManager.Instance.PlaySFX(SoundType.AvoidBullet);
                 if (player2Type == PlayerType.B && result.IsUltimateUsed2)
                     _result2.sprite = _specialImages[4];
+                SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
             }
             // hit
             else
             {
                 _result2.sprite = _resultImages[(int)player2Type * 3 + 2];
-
-                if (player2Type == PlayerType.D && result.HealthDiff2 == 0 && result.IsUltimateUsed2)
+                SoundManager.Instance.PlaySFX(SoundType.BulletSfx3);
+                if(player2Type==PlayerType.D && result.HealthDiff2==0 && !result.IsUltimateUsed2) {
+                    SoundManager.Instance.PlaySFX(SoundType.NadeshikoHit2);
+                }
+                if (player2Type == PlayerType.D && result.HealthDiff2 == 0 && result.IsUltimateUsed2) { 
                     _result2.sprite = _specialImages[5];
+                SoundManager.Instance.PlaySFX(SoundType.NadeshikoSfx);
+                }
+                else
+                {
+                    switch (player2Type)
+                    {
+                        case PlayerType.A:
+                            SoundManager.Instance.PlaySFX(SoundType.RangerHit);
+                            break;
+                        case PlayerType.B:
+                            SoundManager.Instance.PlaySFX(SoundType.RockyHit);
+                            break;
+                        case PlayerType.C:
+                            SoundManager.Instance.PlaySFX(SoundType.MaxHit);
+                            break;
+                    }
+                }
+
             }
 
             yield return new WaitForSeconds(2f);
@@ -190,10 +221,12 @@ public class CutSceneAnimation : MonoBehaviour
 
             _waiting1.gameObject.SetActive(true);
             _waiting1.sprite = _waitingImages[(int)player1Type];
+            SoundManager.Instance.PlaySFX(SoundType.SwallowSfx,2.0f);
             _waiting1.color = Color.clear;
             _waiting1.DOColor(Color.white, .2f);
 
             yield return new WaitForSeconds(3f);
+
 
             _result1.gameObject.SetActive(true);
             _result1.color = Color.clear;
@@ -212,22 +245,50 @@ public class CutSceneAnimation : MonoBehaviour
                 // max misfire with na ultimate
                 if (player1Type == PlayerType.D && result.IsUltimateUsed1)
                     _result1.sprite = _specialImages[5];
+                SoundManager.Instance.PlaySFX(SoundType.NadeshikoSfx);
             }
             // dodge
             else if (result.Action1 == PlayerActionType.Dodge)
             {
                 _result1.sprite = _resultImages[(int)player1Type * 3 + 1];
-
-                if (player1Type == PlayerType.B && result.IsUltimateUsed1)
+                
+                if (player1Type == PlayerType.B && result.IsUltimateUsed1) { 
                     _result1.sprite = _specialImages[4];
+                SoundManager.Instance.PlaySFX(SoundType.RestCharSfx);
+                }
+                SoundManager.Instance.PlaySFX(SoundType.AvoidBullet);
             }
+       
             // hit
             else
             {
                 _result1.sprite = _resultImages[(int)player1Type * 3 + 2];
-
-                if (player1Type == PlayerType.D && result.HealthDiff1 == 0 && result.IsUltimateUsed1)
+                SoundManager.Instance.PlaySFX(SoundType.BulletSfx3);
+                if (player1Type == PlayerType.D && result.HealthDiff2 == 0 && !result.IsUltimateUsed1)
+                {
+                    SoundManager.Instance.PlaySFX(SoundType.NadeshikoHit2);
+                }
+                if (player1Type == PlayerType.D && result.HealthDiff1 == 0 && result.IsUltimateUsed1) {
                     _result1.sprite = _specialImages[5];
+                    SoundManager.Instance.PlaySFX(SoundType.NadeshikoSfx);
+                }
+                else
+                {
+                    switch (player1Type)
+                    {
+                        case PlayerType.A:
+                            SoundManager.Instance.PlaySFX(SoundType.RangerHit);
+                            break;
+                        case PlayerType.B:
+                            SoundManager.Instance.PlaySFX(SoundType.RockyHit);
+                            break;
+                        case PlayerType.C:
+                            SoundManager.Instance.PlaySFX(SoundType.MaxHit);
+                            break;
+                    }
+                }
+
+
             }
 
             yield return new WaitForSeconds(2f);

@@ -17,10 +17,11 @@ public class Nadesiko : Player
         {
             var rand = new Random();
 
-            if (rand.Next(0, 10) < 2)
+            if (rand.Next(0, 10) < 2) {
                 _health = Math.Clamp(_health - 1, 0, _maxHealth);
+            }
             else
-                IsUltimateUsed = true;
+                IsUltimateUsed = true;;
         }
     }
 }

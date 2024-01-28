@@ -31,7 +31,7 @@ public class HeartUI : MonoBehaviour
             _image.sprite = _sprites[i];
             yield return wfs;
         }
-
+        SoundManager.Instance.PlaySFX(SoundType.HeartHit);
         Destroy(gameObject);
     }
 }

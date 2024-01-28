@@ -51,16 +51,19 @@ public class UIManager : MonoBehaviour
 
         _playerUI1.SetReady(false);
         _playerUI2.SetReady(false);
-
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySFX(SoundType.CountGame);
         for (int i = 0; i < 3; i++)
         {
             _countText.text = (3 - i).ToString();
+            
             yield return new WaitForSeconds(1f);
         }
 
         _countText.text = "Start!";
         yield return new WaitForSeconds(1f);
 
+        SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
         _countText.gameObject.SetActive(false);
 
         _canSelectAction = true;

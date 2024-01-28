@@ -21,7 +21,12 @@ public class Max : Player
             if (TryFire())
             {
                 enemy.GetDamage();
+          
             }
         }
+    }
+    public override void GetDamage()
+    {
+        base.GetDamage();
     }
 }
