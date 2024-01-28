@@ -22,6 +22,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 555f39ec9f30d6f489220d9b88e79c94, type: 3}
   - {fileID: 21300000, guid: bd357a785dd9a534b92d5a08af9caf9f, type: 3}
   - {fileID: 21300000, guid: bf83f43a7616fe34ea668518c935d61f, type: 3}
+  PlayerDeadSprites:
+  - {fileID: 21300000, guid: 7ef86a2453e28be48be6cbb07131e57c, type: 3}
+  - {fileID: 21300000, guid: c75927da58061be449e1d9d5e05baa8a, type: 3}
+  - {fileID: 21300000, guid: 83261d794d3c9784d8a010e3d6ee38f5, type: 3}
+  - {fileID: 21300000, guid: da154a51b91878649a1a0a041d40c569, type: 3}
   PlayerCylinders:
   - {fileID: 89511463179177781, guid: f9401f14e05ce5b44b6e0ae073528615, type: 3}
   - {fileID: 89511463179177781, guid: f55b22fd83bfe5b4689fd5b67efa8f5c, type: 3}

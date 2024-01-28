@@ -76,9 +76,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(8f);
         SoundManager.Instance.PlayBGM(SoundType.SecondBGM);
         SoundManager.Instance.gameObject.GetComponent<AudioSource>().loop = true;
-       
-
-      
     }
     private IEnumerator TurnStartCoroutine()
     {
@@ -96,11 +93,11 @@ public class UIManager : MonoBehaviour
 
         yield return _cutSceneAnimation.AnimationCoroutine(result);
 
-        _playerUI1.UpdatePlayerData(result, 1);
-        _playerUI2.UpdatePlayerData(result, 2);
-
         _playerUI1.SetReady(false, _player1DodgeStreak);
         _playerUI2.SetReady(false, _player2DodgeStreak);
+
+        _playerUI1.UpdatePlayerData(result, 1);
+        _playerUI2.UpdatePlayerData(result, 2);
 
         if (!_isGameRunning)
         {

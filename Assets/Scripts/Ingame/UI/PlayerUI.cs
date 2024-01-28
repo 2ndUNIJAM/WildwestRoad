@@ -82,6 +82,11 @@ public class PlayerUI : MonoBehaviour
         {
             hearts[heartCount - i - 1].PlayAnimation();
         }
+
+        if (heartCount <= amount)
+        {
+            _playerImage.sprite = _playerSpriteData.PlayerDeadSprites[(int)_playerData.Type];
+        }
     }
 
     public void SetReady(bool isReady, int dodgeStreak)
