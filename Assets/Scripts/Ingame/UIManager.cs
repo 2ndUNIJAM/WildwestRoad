@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour
         _countText.text = "Start!";
         yield return new WaitForSeconds(1f);
 
-        SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
+        StartCoroutine(BgmCoroutine());
         _countText.gameObject.SetActive(false);
 
         _canSelectAction = true;
@@ -72,7 +72,13 @@ public class UIManager : MonoBehaviour
     private IEnumerator BgmCoroutine()
     {
         SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
-        yield return null;
+
+        yield return new WaitForSeconds(8f);
+        SoundManager.Instance.PlayBGM(SoundType.SecondBGM);
+        SoundManager.Instance.gameObject.GetComponent<AudioSource>().loop = true;
+       
+
+      
     }
     private IEnumerator TurnStartCoroutine()
     {
