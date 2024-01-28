@@ -199,6 +199,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1652974780}
     m_Modifications:
+    - target: {fileID: 290938308232793238, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9fdb6dbc5f6e89e4e93c62ed0388caae, type: 3}
+    - target: {fileID: 1807013825103686113, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058966704868398878, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135672305143378044, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551896614281702666, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4263161528719902060, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -283,6 +303,14 @@ PrefabInstance:
       propertyPath: _turnManager
       value: 
       objectReference: {fileID: 1741013877}
+    - target: {fileID: 7533981948441908292, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824926078867591745, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8930838932732318571, guid: 173e01e3d295ec045ae1d042786e17c4, type: 3}
       propertyPath: m_Name
       value: UIManager
