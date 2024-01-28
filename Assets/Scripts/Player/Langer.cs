@@ -26,4 +26,5 @@ public class Langer : Player
             IsUltimateUsed = false;
         }
     }
+
 }

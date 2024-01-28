@@ -58,6 +58,7 @@ public abstract class Player
         {
             enemy.GetDamage();
             _ammo = Math.Clamp(_ammo - 1, 0, _maxAmmo);
+
         }
     }
 

@@ -77,7 +77,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 public enum SoundType
 {
    MenuBGM=0,
-   BGM2=1,
+   FirstBGM=1,
    CharSelectSfx=2,
    HeartHit=3,
    BulletSfx=4,
@@ -98,6 +98,7 @@ public enum SoundType
    DrawGame=19,
    SwallowSfx=20,
    CountGame=21,
-   BtnMove=22
+   BtnMove=22,
+   SecondBGM=23,
 
 }

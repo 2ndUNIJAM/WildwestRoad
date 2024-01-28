@@ -52,21 +52,27 @@ public class UIManager : MonoBehaviour
 
         _playerUI1.SetReady(false, _player1DodgeStreak);
         _playerUI2.SetReady(false, _player2DodgeStreak);
-
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySFX(SoundType.CountGame);
         for (int i = 0; i < 3; i++)
         {
             _countText.text = (3 - i).ToString();
+            
             yield return new WaitForSeconds(1f);
         }
 
         _countText.text = "Start!";
         yield return new WaitForSeconds(1f);
 
+        SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
         _countText.gameObject.SetActive(false);
 
         _canSelectAction = true;
     }
-
+    private IEnumerator BgmCouroutine()
+    {
+        SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
+    }
     private IEnumerator TurnStartCoroutine()
     {
         yield return null;
@@ -93,6 +99,12 @@ public class UIManager : MonoBehaviour
         {
             // 게임 종료 시 여기 호출됨
             yield return new WaitForSeconds(1f);
+
+            if (_gameResult == GameResult.Draw)
+            {
+                SoundManager.Instance.PlaySFX(SoundType.DrawGame);
+            }
+            else SoundManager.Instance.PlaySFX(SoundType.WinGame);
             Debug.Log(_gameResult);
             _resultPanel.Init(_gameResult);
             yield break;
