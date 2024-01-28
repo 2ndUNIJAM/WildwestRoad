@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     private bool _isGameRunning = false;
     private bool _hasPlayer1Selected = false;
     private bool _hasPlayer2Selected = false;
+    private int _player1DodgeStreak = 0;
+    private int _player2DodgeStreak = 0;
     private int _roundNum = 1;
     private GameResult _gameResult;
 
@@ -48,8 +50,8 @@ public class UIManager : MonoBehaviour
 
         yield return null;
 
-        _playerUI1.SetReady(false);
-        _playerUI2.SetReady(false);
+        _playerUI1.SetReady(false, _player1DodgeStreak);
+        _playerUI2.SetReady(false, _player2DodgeStreak);
 
         for (int i = 0; i < 3; i++)
         {
@@ -84,8 +86,8 @@ public class UIManager : MonoBehaviour
         _playerUI1.UpdatePlayerData(result, 1);
         _playerUI2.UpdatePlayerData(result, 2);
 
-        _playerUI1.SetReady(false);
-        _playerUI2.SetReady(false);
+        _playerUI1.SetReady(false, _player1DodgeStreak);
+        _playerUI2.SetReady(false, _player2DodgeStreak);
 
         if (!_isGameRunning)
         {
@@ -113,43 +115,55 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && !_hasPlayer1Selected)
         {
             _turnManager.SetPlayerAction(1, PlayerActionType.Attack);
+            _player1DodgeStreak = 0;
             _hasPlayer1Selected = true;
-            _playerUI1.SetReady(true);
+            _playerUI1.SetReady(true, _player1DodgeStreak);
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !_hasPlayer1Selected)
         {
+            if (_player1DodgeStreak >= 2)
+                return;
+
             _turnManager.SetPlayerAction(1, PlayerActionType.Dodge);
+            _player1DodgeStreak++;
             _hasPlayer1Selected = true;
-            _playerUI1.SetReady(true);
+            _playerUI1.SetReady(true, _player1DodgeStreak);
         }
 
         if (Input.GetKeyDown(KeyCode.C) && !_hasPlayer1Selected)
         {
             _turnManager.SetPlayerAction(1, PlayerActionType.Reload);
+            _player1DodgeStreak = 0;
             _hasPlayer1Selected = true;
-            _playerUI1.SetReady(true);
+            _playerUI1.SetReady(true, _player1DodgeStreak);
         }
 
-        if (Input.GetKeyDown(KeyCode.B) && !_hasPlayer2Selected)
+        if (Input.GetKeyDown(KeyCode.Comma) && !_hasPlayer2Selected)
         {
             _turnManager.SetPlayerAction(2, PlayerActionType.Attack);
+            _player2DodgeStreak = 0;
             _hasPlayer2Selected = true;
-            _playerUI2.SetReady(true);
+            _playerUI2.SetReady(true, _player2DodgeStreak);
         }
 
-        if (Input.GetKeyDown(KeyCode.N) && !_hasPlayer2Selected)
+        if (Input.GetKeyDown(KeyCode.Period) && !_hasPlayer2Selected)
         {
+            if (_player2DodgeStreak >= 2)
+                return;
+
             _turnManager.SetPlayerAction(2, PlayerActionType.Dodge);
+            _player2DodgeStreak++;
             _hasPlayer2Selected = true;
-            _playerUI2.SetReady(true);
+            _playerUI2.SetReady(true, _player2DodgeStreak);
         }
 
-        if (Input.GetKeyDown(KeyCode.M) && !_hasPlayer2Selected)
+        if (Input.GetKeyDown(KeyCode.Slash) && !_hasPlayer2Selected)
         {
             _turnManager.SetPlayerAction(2, PlayerActionType.Reload);
+            _player2DodgeStreak = 0;
             _hasPlayer2Selected = true;
-            _playerUI2.SetReady(true);
+            _playerUI2.SetReady(true, _player2DodgeStreak);
         }
     }
 
