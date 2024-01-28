@@ -10,9 +10,11 @@ public class ResultPanel : MonoBehaviour
     [SerializeField]
     private List<Sprite> _resultSprites;
     [SerializeField]
-    private List<Image> _winnerImages;
+    private List<Sprite> _winnerSprites;
     [SerializeField]
     private Image _wantedImage;
+    [SerializeField]
+    private Image _winnerImage;
     [SerializeField]
     private Image _bg;
     [SerializeField]
@@ -60,15 +62,12 @@ public class ResultPanel : MonoBehaviour
         _wantedImage.gameObject.SetActive(true);
         _wantedImage.sprite = _resultSprites[(int)_loserType];
 
-        for (int i = 0; i < _winnerImages.Count; i++)
-        {
-            _winnerImages[i].gameObject.SetActive(i == (int)_winnerType);
-        }
+        _winnerImage.gameObject.SetActive(true);
+        _winnerImage.sprite = _winnerSprites[(int)_winnerType];
 
-        var winnerImage = _winnerImages[(int)_winnerType];
-        var startPos = winnerImage.GetComponent<RectTransform>().anchoredPosition;
-        winnerImage.GetComponent<RectTransform>().anchoredPosition += new Vector2(-1920, 0);
-        winnerImage.GetComponent<RectTransform>().DOAnchorPos(startPos, 1f).SetEase(Ease.OutCubic);
+        var startPos = _winnerImage.GetComponent<RectTransform>().anchoredPosition;
+        _winnerImage.GetComponent<RectTransform>().anchoredPosition += new Vector2(-1920, 0);
+        _winnerImage.GetComponent<RectTransform>().DOAnchorPos(startPos, 1f).SetEase(Ease.OutCubic);
 
         CurrentIndex = 2;
     }
