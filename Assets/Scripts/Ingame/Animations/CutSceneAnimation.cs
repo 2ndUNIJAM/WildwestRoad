@@ -193,7 +193,7 @@ public class CutSceneAnimation : MonoBehaviour
                 _result2.sprite = _resultImages[(int)player2Type * 3 + 2];
                 SoundManager.Instance.PlaySFX(SoundType.BulletSfx3);
                 yield return new WaitForSeconds(0.5f);
-                if(player2Type==PlayerType.D && result.HealthDiff2==0 && !result.IsUltimateUsed2) {
+                if(player2Type==PlayerType.D && result.HealthDiff2==-1 && !result.IsUltimateUsed2) {
                     SoundManager.Instance.PlaySFX(SoundType.NadeshikoHit2);
                 }
                 if (player2Type == PlayerType.D && result.HealthDiff2 == 0 && result.IsUltimateUsed2) { 
@@ -280,7 +280,7 @@ public class CutSceneAnimation : MonoBehaviour
                 _result1.sprite = _resultImages[(int)player1Type * 3 + 2];
                 SoundManager.Instance.PlaySFX(SoundType.BulletSfx3);
                 yield return new WaitForSeconds(0.5f);
-                if (player1Type == PlayerType.D && result.HealthDiff2 == 0 && !result.IsUltimateUsed1)
+                if (player1Type == PlayerType.D && result.HealthDiff1 == -1 && !result.IsUltimateUsed1)
                 {
                     SoundManager.Instance.PlaySFX(SoundType.NadeshikoHit2);
                 }
