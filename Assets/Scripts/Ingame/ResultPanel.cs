@@ -23,6 +23,8 @@ public class ResultPanel : MonoBehaviour
     private Image _bg;
     [SerializeField]
     private Color _bgColor;
+    [SerializeField]
+    private GameObject[] _winTexts;
 
     private PlayerType _winnerType;
     private PlayerType _loserType;
@@ -83,11 +85,13 @@ public class ResultPanel : MonoBehaviour
         {
             _winnerType = GameManager.Instance.Player1Type;
             _loserType = GameManager.Instance.Player2Type;
+            _winTexts[0].SetActive(true);
         }
         else if (result == GameResult.Player2Win)
         {
             _winnerType = GameManager.Instance.Player2Type;
             _loserType = GameManager.Instance.Player1Type;
+            _winTexts[1].SetActive(true);
         }
 
         _wantedImage.gameObject.SetActive(true);
@@ -164,6 +168,6 @@ public class ResultPanel : MonoBehaviour
     [ContextMenu("Test")]
     public void Test()
     {
-        Init(GameResult.Draw);
+        Init(GameResult.Player2Win);
     }
 }
