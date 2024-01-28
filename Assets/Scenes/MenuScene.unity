@@ -3598,11 +3598,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bgms:
   - SoundType: 0
-    clip: {fileID: 8300000, guid: dd50ba9a1f5735e468771970675772ac, type: 3}
-  - SoundType: 1
     clip: {fileID: 8300000, guid: cd76c52b3a7628043bb7d2eeed982330, type: 3}
-  - SoundType: 23
+  - SoundType: 1
     clip: {fileID: 8300000, guid: 99e030241fcb7a64eb8adff766a6cece, type: 3}
+  - SoundType: 23
+    clip: {fileID: 8300000, guid: dd50ba9a1f5735e468771970675772ac, type: 3}
   _sfxs:
   - SoundType: 0
     clip: {fileID: 8300000, guid: cd76c52b3a7628043bb7d2eeed982330, type: 3}
