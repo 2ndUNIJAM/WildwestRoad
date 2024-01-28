@@ -161,6 +161,10 @@ public class CutSceneAnimation : MonoBehaviour
                 // max misfire with na ultimate
                 if (player2Type == PlayerType.D && result.IsUltimateUsed2)
                     _result2.sprite = _specialImages[5];
+
+                // max misfire with loki dodge by using ultimate
+                if (player2Type == PlayerType.B && result.IsUltimateUsed2)
+                    _result2.sprite = _specialImages[4];
             }
             // dodge
             else if (result.Action2 == PlayerActionType.Dodge)
@@ -212,6 +216,10 @@ public class CutSceneAnimation : MonoBehaviour
                 // max misfire with na ultimate
                 if (player1Type == PlayerType.D && result.IsUltimateUsed1)
                     _result1.sprite = _specialImages[5];
+
+                // max misfire with loki dodge by using ultimate
+                if (player1Type == PlayerType.B && result.IsUltimateUsed1)
+                    _result1.sprite = _specialImages[4];
             }
             // dodge
             else if (result.Action1 == PlayerActionType.Dodge)
