@@ -6,7 +6,6 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    // TODO: 의존성 있는 컴포턴트 [SerializeField]로 계속 추가해서 사용
     [SerializeField]
     private TurnManager _turnManager;
     [SerializeField]

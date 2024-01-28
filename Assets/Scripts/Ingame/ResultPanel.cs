@@ -16,6 +16,10 @@ public class ResultPanel : MonoBehaviour
     [SerializeField]
     private Image _winnerImage;
     [SerializeField]
+    private Image _p1Image;
+    [SerializeField]
+    private Image _p2Image;
+    [SerializeField]
     private Image _bg;
     [SerializeField]
     private Color _bgColor;
@@ -47,7 +51,34 @@ public class ResultPanel : MonoBehaviour
         _bg.color = Color.clear;
         _bg.DOColor(_bgColor, .2f);
 
-        // TODO: 무승부 시 예외처리
+        if (result == GameResult.Draw)
+        {
+            var p1Type = GameManager.Instance.Player1Type;
+            var p2Type = GameManager.Instance.Player2Type;
+
+            _wantedImage.gameObject.SetActive(true);
+            _wantedImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            _wantedImage.sprite = _resultSprites[4];
+
+            _p1Image.gameObject.SetActive(true);
+            _p1Image.sprite = _winnerSprites[(int)p1Type];
+
+            var pos1 = _p1Image.GetComponent<RectTransform>().anchoredPosition;
+            _p1Image.GetComponent<RectTransform>().anchoredPosition += new Vector2(-1920, 0);
+            _p1Image.GetComponent<RectTransform>().DOAnchorPos(pos1, 1f).SetEase(Ease.OutCubic);
+
+            _p2Image.gameObject.SetActive(true);
+            _p2Image.sprite = _winnerSprites[(int)p2Type];
+
+            var pos2 = _p2Image.GetComponent<RectTransform>().anchoredPosition;
+            _p2Image.GetComponent<RectTransform>().anchoredPosition += new Vector2(1920, 0);
+            _p2Image.GetComponent<RectTransform>().DOAnchorPos(pos2, 1f).SetEase(Ease.OutCubic);
+
+            CurrentIndex = 2;
+
+            return;
+        }
+
         if (result == GameResult.Player1Win)
         {
             _winnerType = GameManager.Instance.Player1Type;
@@ -133,6 +164,6 @@ public class ResultPanel : MonoBehaviour
     [ContextMenu("Test")]
     public void Test()
     {
-        Init(GameResult.Player1Win);
+        Init(GameResult.Draw);
     }
 }
