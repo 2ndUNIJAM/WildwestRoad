@@ -68,7 +68,10 @@ public class UIManager : MonoBehaviour
 
         _canSelectAction = true;
     }
-
+    private IEnumerator BgmCouroutine()
+    {
+        SoundManager.Instance.PlayBGM(SoundType.FirstBGM);
+    }
     private IEnumerator TurnStartCoroutine()
     {
         yield return null;
@@ -95,6 +98,12 @@ public class UIManager : MonoBehaviour
         {
             // 게임 종료 시 여기 호출됨
             yield return new WaitForSeconds(1f);
+
+            if (_gameResult == GameResult.Draw)
+            {
+                SoundManager.Instance.PlaySFX(SoundType.DrawGame);
+            }
+            else SoundManager.Instance.PlaySFX(SoundType.WinGame);
             Debug.Log(_gameResult);
             _resultPanel.Init(_gameResult);
             yield break;
