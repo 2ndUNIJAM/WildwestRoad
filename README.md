@@ -1,4 +1,4 @@
-#UNIJAM 2회 팀 프로젝트
+ <h1>2ND UNIJAM</h1>
 <img width="40%" src="https://github.com/2ndUNIJAM/WildwestRoad/assets/150761282/cc5d805f-5736-4fbb-99a6-482b611f410f"/>
 ##[MEMBERS]
 ###[GamePlanner] 유세민
