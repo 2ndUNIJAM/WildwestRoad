@@ -1,5 +1,5 @@
  <h1>2ND UNIJAM</h1>
-<img width="40%" src="https://github.com/2ndUNIJAM/WildwestRoad/assets/150761282/cc5d805f-5736-4fbb-99a6-482b611f410f"/>
+<img width="50%" src="https://github.com/2ndUNIJAM/WildwestRoad/assets/150761282/cc5d805f-5736-4fbb-99a6-482b611f410f"/>
 
 ## 개발 기간
 - 2024.1.26 ~ 2024.1.28
@@ -18,7 +18,7 @@
 ## 기술 스택
 <img src="https://img.shields.io/badge/Unity-FFFFFF?style=for-the-badge&logo=Unity&logoColor=black">
 
-## WildwestRoad
+# WildwestRoad
 <img width="80%" height="60%" src="https://github.com/2ndUNIJAM/WildwestRoad/assets/150761282/e4177c1e-c4e4-4c9c-93a3-26cfac9d27a8"/> <br/>
 - 1860년, 미국 서부 야생의 도로 한복판에서 두 개척자가 마주칩니다. 적을 향해 총구를 겨누고 방아쇠를 당겼다면, 이제 겨우 승부는 반쯤 온 셈입니다! 당신의 운과 판단을 믿고 결투에서 승리하세요!
   
@@ -34,3 +34,4 @@
 - 카우보이들의 다양한 능력을 적극적으로 활용하세요!
 
 <img width="80%" src="https://github.com/2ndUNIJAM/WildwestRoad/assets/150761282/2aba8067-b80e-4b8f-bfee-3c0ab043aacf"/> <br/>
+- 각 플레이어들은 라운드마다 상대방의 행동 심리를 파악하여 대응해야 합니다!
